@@ -1,2 +1,12 @@
 let matriz = [["hola", "mundo"], ["adios", "mundo"]];
-console.log(matriz[0][0] + " "+ matriz[0][1]);
+let cadenas = [];
+for (let i = 0; i < matriz.length; i++) {
+    let cadena ="";
+    for (let j = 0; j < matriz.length; j++) {
+        cadena += matriz[i][j] + " ";
+    }
+    cadenas.push(cadena);
+}
+
+console.log(cadenas);
+
