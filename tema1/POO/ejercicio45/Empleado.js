@@ -39,7 +39,7 @@ class Empleado extends Persona {
     }
 
     saludar() {
-        console.log("Hola, soy " + this.nombre + " y tengo " + this.edad + " años. Mi salario es: " + this.#salario);
+        console.log(super.saludar() + " Mi salario es: " + this.#salario);
     }
 
     presentarPersonas(Persona) {
