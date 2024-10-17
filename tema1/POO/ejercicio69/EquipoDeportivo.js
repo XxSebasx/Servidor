@@ -46,7 +46,6 @@ class Futbol extends EquipoDeportivo {
 EquipoDeportivo.agregarJugador(new Jugador("Juan", "Delantero", 9));
 EquipoDeportivo.agregarJugador(new Jugador("Pedro","Portero",1));
 EquipoDeportivo.listarJugadores();
-// Salida: Juan (Delantero), Pedro (Portero)
 
 Futbol.filtrarPorPosicion("Portero");
-// Salida: Pedro (Portero)
+
