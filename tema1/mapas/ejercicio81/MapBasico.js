@@ -46,7 +46,7 @@ class Concesionario{
 
     agregarVehiculo(vehiculo){
         if(this.#vehiculos.has(vehiculo.getMatricula())){
-            throw new Error(`El vehiculo con matricula ${vehiculo.matricula} ya está en uso`);
+            throw new Error(`El vehiculo con matricula ${vehiculo.getMatricula()} ya está en uso`);
         }
         this.#vehiculos.set(vehiculo.getMatricula(), vehiculo);
     }
