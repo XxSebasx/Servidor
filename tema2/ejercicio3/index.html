@@ -1,30 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cliente http</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cliente JSON</title>
 </head>
-
 <body>
-    <h1>Cliente de javascript</h1>
-    <button onclick="fetchData()">Hacer solicitud al servidor</button>
-    <div id="response"></div>
+	<h1>Cliente JSON para servidor Node.js</h1>
+	<button id="fetchData">Obtener datos del servidor</button>
+	<div id="responseContainer"></div>
 
-
-    <script>
-        function fetchData() {
-            fetch('http://localhost:3000')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('response').innerHTML = data;
-                })
-                .catch(error => {
-                    document.getElementById('response').innerHTML = "<p>ERROR</p>"
-                })
-        }
-    </script>
+	<script>
+    	document.getElementById('fetchData').addEventListener('click', () => {
+        	fetch('http://localhost:3000')
+            	.then(response => {
+                	if (!response.ok) {
+                    	throw new Error(`Error: ${response.status}`);
+                	}
+                	return response.json();
+            	})
+            	.then(data => {
+                	const container = document.getElementById('responseContainer');
+                	container.innerHTML = `
+                    	<p><strong>Mensaje:</strong> ${data.message}</p>
+                    	<p><strong>URL:</strong> ${data.url}</p>
+                    	<p><strong>Método:</strong> ${data.method}</p>
+                	`;
+            	})
+            	.catch(error => {
+                	console.error('Error al obtener datos:', error);
+            	});
+    	});
+	</script>
 </body>
-
 </html>
