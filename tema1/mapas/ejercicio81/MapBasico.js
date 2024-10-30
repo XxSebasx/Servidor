@@ -2,6 +2,9 @@ class Vehiculo {
     #velocidadActual
     #matricula
     constructor(velocidadActual, matricula) {
+        if(new.target === Vehiculo){
+            throw new Error("No se puede instanciar la clase abstracta Vehiculo");
+        }
         this.#velocidadActual = velocidadActual;
         this.#matricula = matricula;
     }
