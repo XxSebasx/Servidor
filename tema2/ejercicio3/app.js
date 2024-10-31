@@ -7,9 +7,9 @@ const server = http.createServer((req,res) =>{
    res.setHeader('Access-Control-Allow-Origin', '*');
 
    const responseObject = {
-      message: "Hola esta es una respuesta JSON",
-      url: req.url,
-      method: req.method
+      nombre: "Hola esta es una respuesta JSON",
+      edad: "21",
+      pais: req.method
    };
 
    res.end(JSON.stringify(responseObject));
