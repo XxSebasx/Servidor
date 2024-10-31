@@ -1,6 +1,5 @@
 const http = require('http');
 const port = 3000;
-
 class Trabajador {
    #dni;
    #nombre;
@@ -26,37 +25,38 @@ class Trabajador {
 }
 
 let trabajador = new Trabajador('12345678', 'John Doe', 5000);
-let trabajador2 = new Trabajador('66666666', 'Sebastian', 100);
-
 let mapa = new Map();
 
 mapa.set(trabajador.getDni(), trabajador);
 
-mapa.set(trabajador2.getDni(), trabajador2);
+
 
 const server = http.createServer((req, res) => {
-   res.setHeader('Content-type', 'text/html');
    res.setHeader('Access-Control-Allow-Origin', '*');
-   if (req.url === '/12345678') {
-      let dni = req.url.substring(1);
+   if(req.url.split('/')[3] === 'ejemplo' && req.url.split('/')[2] === 'numeroDni' && req.url.split('/')[1] === 'dni') {
+      let dni = req.url.split('/')[4];
       if (mapa.has(dni)) {
-         let trabajadorEncontrado = mapa.get(req.params.numeroDni);
          const responseObject = {
-            nombre:trabajadorEncontrado.getNombre(),
-            dni: trabajadorEncontrado.getDni(),
-            salario: trabajadorEncontrado.getSalario()
+            dni: dni,
+            nombre: mapa.get(dni).getNombre(),
+            salario: mapa.get(dni).getSalario()
          };
          res.end(JSON.stringify(responseObject));
       } else {
-         res.writeHead(404, { 'Content-Type': 'application/json' });
-         res.end(JSON.stringify({ error: 'Trabajador no encontrado' }));
+         res.writeHead(302, {
+            Location: '/error'
+         });
+         res.end();
       }
-   }else {
-      res.end('Endpoint no válido');
+   }else if(req.url.split('/')[1] === 'nuevo' && req.url.split('/')[2] === 'numeroDni' && req.url.split('/')[3] === 'salario' && req.url.split('/')[4] === 'nombre') {
+      let dni = req.url.split('/')[5];
+      let nombre = req.url.split('/')[6];
+      let salario = parseInt(req.url.split('/')[7]);
+      let nuevoTrabajador = new Trabajador(dni, nombre, salario);
+      mapa.set(dni, nuevoTrabajador);
    }
-   
-});
 
+});
 
 server.listen(port, () => {
    console.log(`Server is running on port ${port}`);
