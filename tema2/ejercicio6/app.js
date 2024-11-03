@@ -29,12 +29,11 @@ let mapa = new Map();
 
 mapa.set(trabajador.getDni(), trabajador);
 
-
-
 const server = http.createServer((req, res) => {
    res.setHeader('Access-Control-Allow-Origin', '*');
-   if(req.url.split('/')[3] === 'ejemplo' && req.url.split('/')[2] === 'numeroDni' && req.url.split('/')[1] === 'dni') {
-      let dni = req.url.split('/')[4];
+   let url = req.url.split('/');
+   if(url[1] === 'dni' && url[2] === 'numeroDniejemplodni') {
+      let dni = req.url.split('/')[3];
       if (mapa.has(dni)) {
          const responseObject = {
             dni: dni,
@@ -48,12 +47,24 @@ const server = http.createServer((req, res) => {
          });
          res.end();
       }
-   }else if(req.url.split('/')[1] === 'nuevo' && req.url.split('/')[2] === 'numeroDni' && req.url.split('/')[3] === 'salario' && req.url.split('/')[4] === 'nombre') {
-      let dni = req.url.split('/')[5];
-      let nombre = req.url.split('/')[6];
-      let salario = parseInt(req.url.split('/')[7]);
+   }else if(url[1] === 'nuevo' && url[2] === 'dni' && url[3] === 'nombre' && url[4] === 'salariocomoejemplo' && url[5] === 'nuevo') {
+      let dni = req.url.split('/')[6];
+      let nombre = req.url.split('/')[7];
+      let salario = parseInt(req.url.split('/')[8]);
       let nuevoTrabajador = new Trabajador(dni, nombre, salario);
-      mapa.set(dni, nuevoTrabajador);
+      if(!mapa.has(dni)){
+         mapa.set(dni, nuevoTrabajador);
+         res.end('Trabajador añadido correctamente');
+      }else{
+         res.writeHead(302, {
+            Location: '/error'
+         });
+         res.end();
+      }
+      
+   }else{
+      res.write(`<h1>Bienvenido</h1>`)
+      res.end();
    }
 
 });
