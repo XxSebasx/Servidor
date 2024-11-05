@@ -6,7 +6,8 @@ const server = http.createServer((req, res) => {
    res.setHeader('Content-type', 'text/html');
    
    const currentDate = new Date();
-   res.write(`<h1>La fecha y hora actual son ${currentDate.toLocaleDateString}</h1>`)
+   res.write(`<h1>La fecha y hora actual son ${currentDate.toLocaleString()}</h1>`)
+   res.end();
 });
 
 server.listen(port, () => {

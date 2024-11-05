@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente http</title>
+</head>
+
+<body>
+    <h1>Cliente de javascript</h1>
+    <button onclick="fetchData()">Hacer solicitud al servidor</button>
+    <div id="response"></div>
+
+
+    <script>
+        function fetchData() {
+            fetch('http://localhost:3000')
+                .then(response => response.text())
+                .then(data => {  
+                    document.getElementById('response').innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById('response').innerHTML = "<p>ERROR</p>"
+                })
+        }
+    </script>
+</body>
+
+</html>

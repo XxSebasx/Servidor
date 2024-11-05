@@ -32,8 +32,8 @@ mapa.set(trabajador.getDni(), trabajador);
 const server = http.createServer((req, res) => {
    res.setHeader('Access-Control-Allow-Origin', '*');
    let url = req.url.split('/');
-   if(url[1] === 'dni' && url[2] === 'numeroDniejemplodni') {
-      let dni = req.url.split('/')[3];
+   if(url[1] === 'dni'){
+      let dni = req.url.split('/')[2];
       if (mapa.has(dni)) {
          const responseObject = {
             dni: dni,
@@ -47,10 +47,10 @@ const server = http.createServer((req, res) => {
          });
          res.end();
       }
-   }else if(url[1] === 'nuevo' && url[2] === 'dni' && url[3] === 'nombre' && url[4] === 'salariocomoejemplo' && url[5] === 'nuevo') {
-      let dni = req.url.split('/')[6];
-      let nombre = req.url.split('/')[7];
-      let salario = parseInt(req.url.split('/')[8]);
+   }else if(url[1] === 'nuevo') {
+      let dni = req.url.split('/')[2];
+      let nombre = req.url.split('/')[3];
+      let salario = parseInt(req.url.split('/')[4]);
       let nuevoTrabajador = new Trabajador(dni, nombre, salario);
       if(!mapa.has(dni)){
          mapa.set(dni, nuevoTrabajador);
