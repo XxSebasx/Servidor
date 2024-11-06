@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Form</title>
+</head>
+<body>
+  <h1>Enviar Datos JSON</h1>
+  <form id="dataForm">
+	<label for="data">Introduce JSON:</label>
+	<input type="text" id="data" name="data" placeholder='{"key": "value"}' required>
+	<button type="submit">Enviar</button>
+  </form>
+
+  <div id="response"></div>
+
+  <script>
+	document.getElementById('dataForm').addEventListener('submit', async function(event) {
+  	event.preventDefault();
+
+  	const formData = new URLSearchParams(new FormData(event.target));
+    
+  	try {
+    	const response = await fetch('http://localhost:3000', {
+      	method: 'POST',
+      	headers: {
+        	'Content-Type': 'application/x-www-form-urlencoded',
+      	},
+      	body: formData,
+    	});
+
+    	const result = await response.json();
+    	document.getElementById('response').innerText = JSON.stringify(result, null, 2);
+  	} catch (error) {
+    	document.getElementById('response').innerText = 'Error: ' + error.message;
+  	}
+	});
+  </script>
+</body>
+</html>

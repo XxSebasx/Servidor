@@ -29,6 +29,7 @@ let trabajador = new Trabajador('12345678', 'John', 5000);
 let mapa = new Map();
 
 mapa.set(trabajador.getDni(), trabajador);
+
 //http://localhost:3000?data={"dni":"12345678"}
 //http://localhost:3000?data={"nombre":"Alice","salario":1000,"dni":"77495791A"}
 const server = http.createServer((req, res) => {
@@ -40,9 +41,8 @@ const server = http.createServer((req, res) => {
          try {
             const jsonData = JSON.parse(queryObject.data); // Convertimos el string JSON a un objeto JavaScript
             console.log(jsonData);
-            // Si el DNI existe en el mapa, respondemos con los datos del trabajador
             res.setHeader('Content-Type', 'application/json');
-            if(!jsonData.salario){
+            if(!jsonData.salario && jsonData.dni){
                if (mapa.has(jsonData.dni)) {
                   res.end(JSON.stringify({
                      nombre: mapa.get(jsonData.dni).getNombre(),
