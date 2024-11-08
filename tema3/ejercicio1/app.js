@@ -23,7 +23,7 @@ app.get('/libros/:id', (req, res) => {
     let libroEncontrado = null;
     let id = parseInt(req.params.id);
     libros.forEach(libro => {
-        if(libro.id === id) {
+        if(libro.id === id){
             libroEncontrado = libro;
             return;
         }

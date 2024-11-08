@@ -11,17 +11,18 @@
   <h1>Enviar Datos JSON</h1>
   <form id="dataForm">
     <label for="data">Introduce JSON:</label>
-    <input type="text" id="data" name="data"
-      placeholder='{"key":"value"}' required>
+    <input type="text" id="id" name="id"
+      placeholder='id' required>
     <button type="submit">Enviar</button>
   </form>
 
   <script>
     document.getElementById('dataForm').addEventListener('submit', async function (event) {
       event.preventDefault();
-      const inputData = document.getElementById('data').value;
+      const id = document.getElementById('data').value;
+      const inputDataId = `{"id": ${id}}`;
       let parsedData = JSON.parse(inputData);
-      fetch('http://localhost:3000', {
+      fetch('http://localhost:3000/alumnos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -37,4 +38,3 @@
 </body>
 
 </html>
-

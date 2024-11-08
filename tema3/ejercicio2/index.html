@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enviar Datos JSON</title>
+</head>
+<!-- {"id": 3, "nombre": "Sebas", "edad": 21, "curso": "DAW", "calificaciones": [9, 8, 7]} -->
+<body>
+  <h1>Enviar Datos JSON</h1>
+  <form id="dataForm">
+    <label for="data">Introduce JSON:</label>
+    <input type="text" id="id" placeholder="id">
+    <input type="text" id="nombre" placeholder="nombre">
+    <input type="text" id="edad" placeholder="edad">
+    <input type="text" id="curso" placeholder="curso">
+    <input type="text" id="calificacion1" placeholder="calificacion1">
+    <input type="text" id="calificacion2" placeholder="calificacion2">
+    <input type="text" id="calificacion3" placeholder="calificacion3">
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    document.getElementById('dataForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+      
+
+
+      const id = document.getElementById('id').value;
+      const nombre = document.getElementById('nombre').value;
+      const edad = document.getElementById('edad').value;
+      const curso = document.getElementById('curso').value;
+      const calificacion1 = parseInt(document.getElementById('calificacion1').value);
+      const calificacion2 = parseInt(document.getElementById('calificacion2').value);
+      const calificacion3 = parseInt(document.getElementById('calificacion3').value);
+
+      const inputData = {
+        id: parseInt(id),
+        nombre: nombre,
+        edad: edad,
+        curso: curso,
+        calificaciones: [calificacion1, calificacion2, calificacion3]
+      };
+
+      let parsedData = JSON.parse(inputData);
+      fetch('http://localhost:3000/alumnos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(parsedData)
+      })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+
+    });
+  </script>
+</body>
+
+</html>
