@@ -25,6 +25,15 @@ const vehiculos = [
 ];
 
 
+app.use(express.json());
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
 app.get('/vehiculos', (req, res) => {
     let listadoVehiculos = [];
     vehiculos.forEach(vehiculo => {
@@ -50,17 +59,14 @@ app.get('/vehiculos/:id', (req, res) => {
 });
 
 app.post('/vehiculos/:id/propietarios', (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
     const propietario = req.body;
-    const vehiculoEncontrado = null;
     vehiculos.forEach(vehiculo => {
-        if (vehiculo.id === id) {
-            vehiculoEncontrado = vehiculo;
+        if (vehiculo.id == id){
             vehiculo.propietarios.push(propietario);
             return;
         }
     });
-    res.json(vehiculoEncontrado);
 });
 
 app.listen(PORT, () => {

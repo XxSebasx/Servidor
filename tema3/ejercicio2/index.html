@@ -25,8 +25,6 @@
     document.getElementById('dataForm').addEventListener('submit', async function (event) {
       event.preventDefault();
       
-
-
       const id = document.getElementById('id').value;
       const nombre = document.getElementById('nombre').value;
       const edad = document.getElementById('edad').value;
@@ -43,18 +41,13 @@
         calificaciones: [calificacion1, calificacion2, calificacion3]
       };
 
-      let parsedData = JSON.parse(inputData);
       fetch('http://localhost:3000/alumnos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(parsedData)
+        body: JSON.stringify(inputData)
       })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
-
     });
   </script>
 </body>
