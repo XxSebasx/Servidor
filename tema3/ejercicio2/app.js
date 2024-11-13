@@ -9,7 +9,7 @@ const alumnos = {
     2: { nombre: 'Luis', edad: 22, curso: 'Medicina', calificaciones: [10, 9, 8] },
 };
 
-// Middleware para leer los cuerpos de las solicitudes POST como JSON
+
 app.use(express.json());
 
 app.use((req, res, next) => {

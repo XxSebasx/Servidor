@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Enviar Datos JSON</title>
 </head>
-<!-- {"id": 3, "nombre": "Sebas", "edad": 21, "curso": "DAW", "calificaciones": [9, 8, 7]} -->
+
 <body>
   <h1>Enviar Datos JSON</h1>
   <form id="dataForm">
@@ -25,7 +25,7 @@
     document.getElementById('dataForm').addEventListener('submit', async function (event) {
       event.preventDefault();
       
-      const id = document.getElementById('id').value;
+      const ID = parseInt(document.getElementById('id').value);
       const nombre = document.getElementById('nombre').value;
       const edad = document.getElementById('edad').value;
       const curso = document.getElementById('curso').value;
@@ -34,7 +34,7 @@
       const calificacion3 = parseInt(document.getElementById('calificacion3').value);
 
       const inputData = {
-        id: parseInt(id),
+        id: ID,
         nombre: nombre,
         edad: edad,
         curso: curso,
